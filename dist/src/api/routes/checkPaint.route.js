@@ -1,0 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const checkPatient_controller_1 = require("../controllers/checkPatient.controller");
+const fileUpload_1 = require("../middlewares/fileUpload");
+const isAuth_1 = require("../middlewares/isAuth");
+const isDoctor_1 = require("../middlewares/isDoctor");
+const router = (0, express_1.Router)();
+router.post("/nextinspection", isAuth_1.isAuth, isDoctor_1.isDoctor, checkPatient_controller_1.theNextInspection);
+router.get("/checkpaints", isAuth_1.isAuth, isDoctor_1.isDoctor, checkPatient_controller_1.getCheckPaint);
+router.put("/inspection/:inspectionId", fileUpload_1.fileUpload, checkPatient_controller_1.createInspection);
+router.get("/patientinfo/:patientId", isAuth_1.isAuth, isDoctor_1.isDoctor, checkPatient_controller_1.getOnePatientInfo);
+exports.default = router;
